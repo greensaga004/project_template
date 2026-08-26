@@ -231,3 +231,5 @@ goto verification
 goto next stage
 
 finish current stage
+
+finish (switch to main branch and delete the current branch)
