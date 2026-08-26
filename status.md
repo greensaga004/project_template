@@ -175,7 +175,7 @@ Exit Criteria:
 - [ ] Backend Changes
 - [ ] Frontend Changes
 - [ ] Unit Tests
-- [ ] Docs updated
+- [ ] Docs/README.md updated
 
 ### VERIFICATION
 
@@ -210,6 +210,7 @@ Rules:
 4. Avoid over-engineering.
 5. Suggest architecture changes only when absolutely necessary.
 6. Focus on completing the current stage before moving forward.
+7. On `goto next stage`, commit the current changes before advancing.
 
 ---
 
