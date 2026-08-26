@@ -182,7 +182,6 @@ Exit Criteria:
 - [ ] Feature Tested
 - [ ] Spec Coverage Verified
 - [ ] CI Passed
-- [ ] Ready for PR
 
 ---
 
