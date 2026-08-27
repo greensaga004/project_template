@@ -1,23 +1,19 @@
 # PROJECT STATUS
 
+> Use this file for a **single work item** (feature, fix, chore, docs) on its own branch.
+> Copy into `docs/`, fill in the Current Work Item, reset the checklist to unchecked, and start at the INIT stage.
+> For whole-codebase architecture, target, and roadmap, see `project.md`.
+
 ## Project
 
-Project Name: TBD
-
-Repository: TBD
-
-Tech Stack:
-
-- Frontend: TBD
-- Backend: TBD
-- Database: TBD
-- Cloud: TBD
+See `project.md` for Project Name, Repository, and Tech Stack.
+(For a standalone task with no `project.md`, fill those in here instead.)
 
 ---
 
-## Current Feature
+## Current Work Item
 
-Feature Name: TBD
+Work Item Name: TBD
 
 Description: TBD
 
@@ -25,10 +21,11 @@ Description: TBD
 
 ## Current Stage
 
-SPEC
+INIT
 
 Available Stages:
 
+- INIT
 - SPEC
 - TASK
 - IMPLEMENTATION
@@ -38,6 +35,38 @@ Available Stages:
 
 ## Stage Definitions
 
+### INIT
+
+Goal:
+
+Set up this task's context before any requirements work.
+
+Output:
+
+Filled header of this file (Project + Current Work Item).
+
+Allowed:
+
+- Confirm Branch
+- Set Work Item Name / Description
+- Inherit Tech Stack from project.md
+- Agree Task Boundary / Scope Line
+
+Not Allowed:
+
+- Requirements / MVP Definition
+- Task Planning
+- Source Code
+
+Exit Criteria:
+
+- Branch created
+- Work Item Name + Description filled
+- Tech Stack confirmed
+- Scope boundary agreed
+
+---
+
 ### SPEC
 
 Goal:
@@ -46,7 +75,7 @@ Define requirements and MVP.
 
 Output:
 
-docs/specs/<feature>.md
+docs/specs/<name>.md
 
 Allowed:
 
@@ -74,11 +103,11 @@ Exit Criteria:
 
 Goal:
 
-Break the feature into implementable tasks.
+Break the work item into implementable tasks.
 
 Output:
 
-docs/tasks/<feature>.md
+docs/tasks/<name>.md
 
 Allowed:
 
@@ -102,7 +131,7 @@ Exit Criteria:
 
 Goal:
 
-Build the feature.
+Build the work item.
 
 Output:
 
@@ -110,14 +139,14 @@ Source Code
 
 Allowed:
 
-- Database Changes
-- Backend Code
-- Frontend Code
+- Data / Storage Changes
+- Core / Logic Code
+- UI / Interface Code
 - Tests
 
 Not Allowed:
 
-- New Feature Scope Changes
+- New Scope Changes
 
 Exit Criteria:
 
@@ -146,13 +175,36 @@ Allowed:
 
 Exit Criteria:
 
-- Feature matches Spec
-- CI passes
+- Implementation matches Spec
+- Tests pass
+- CI passes (required if Delivery Policy in project.md sets CI Required = yes)
 - No critical issues remain
 
 ---
 
+## Delivery (after VERIFICATION)
+
+> Not a stage. Runs once VERIFICATION is done.
+
+Flow (only if project.md Delivery Policy sets Pull Request Required = yes):
+
+1. `open pr` — confirm, then push branch and open a PR to main.
+2. Wait for CI green + review approval.
+3. Merge the PR.
+4. `finish` — switch to main and delete the branch.
+
+If Pull Request Required = no, skip straight to `finish`.
+
+---
+
 ## Current Checklist
+
+### INIT
+
+- [ ] Branch Created
+- [ ] Work Item Name + Description
+- [ ] Tech Stack Confirmed
+- [ ] Scope Boundary Agreed
 
 ### SPEC
 
@@ -164,24 +216,24 @@ Exit Criteria:
 
 ### TASK
 
-- [ ] Backend Tasks
-- [ ] Frontend Tasks
-- [ ] Database Tasks
+- [ ] Core / Logic Tasks
+- [ ] UI / Interface Tasks
+- [ ] Data / Storage Tasks
 - [ ] Test Tasks
 
 ### IMPLEMENTATION
 
-- [ ] Database Changes
-- [ ] Backend Changes
-- [ ] Frontend Changes
+- [ ] Data / Storage Changes
+- [ ] Core / Logic Changes
+- [ ] UI / Interface Changes
 - [ ] Unit Tests
-- [ ] Docs/README.md updated
+- [ ] Docs/README updated
 
 ### VERIFICATION
 
-- [ ] Feature Tested
+- [ ] Work Item Tested
 - [ ] Spec Coverage Verified
-- [ ] CI Passed
+- [ ] CI Passed (required if project.md Delivery Policy sets CI Required = yes)
 
 ---
 
@@ -210,14 +262,17 @@ Rules:
 5. Suggest architecture changes only when absolutely necessary.
 6. Focus on completing the current stage before moving forward.
 7. On `goto next stage`, commit the current changes before advancing.
+8. On `goto init`, reset this file to its init state: set Current Stage to INIT, set Work Item Name/Description/Current Task/Next Action to TBD, and uncheck every checklist item.
+9. On `open pr`, always show the PR title and description and ask for explicit user confirmation; only open the PR after the user approves.
+10. On `report` while on a work branch, summarize progress from this file only (current stage + checklist); do not read `project.md`.
 
 ---
 
 ## Commands
 
-show current stage
+report   (on a work branch: summarize this work item's progress from status.md only; do not read project.md)
 
-show current feature
+goto init   (reset this file to init state: stage=INIT, header fields=TBD, all checkboxes unchecked)
 
 goto spec
 
@@ -229,6 +284,6 @@ goto verification
 
 goto next stage
 
-finish current stage
+open pr   (after VERIFICATION done: push branch and open a PR to main; requires CI green if project.md sets CI Required = yes; must be confirmed by the user before the PR is actually opened)
 
 finish (switch to main branch and delete the current branch)
