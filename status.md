@@ -64,6 +64,7 @@ Allowed:
 - Set Work Item Name / Description
 - Inherit Tech Stack from project.md
 - Agree Task Boundary / Scope Line
+- Confirm the item's one-line Definition of Done and check it doesn't overlap an earlier item
 
 Not Allowed:
 
@@ -77,6 +78,7 @@ Exit Criteria:
 - Work Item Name + Description filled
 - Tech Stack confirmed
 - Scope boundary agreed
+- Definition of Done confirmed and overlap with earlier items checked
 
 ---
 
@@ -220,6 +222,7 @@ If Pull Request Required = no, skip straight to `finish`.
 - [ ] Work Item Name + Description
 - [ ] Tech Stack Confirmed
 - [ ] Scope Boundary Agreed
+- [ ] Definition of Done + Overlap Checked
 
 ### SPEC
 

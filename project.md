@@ -130,13 +130,20 @@ Constraints / Non-Functional Requirements:
 > Each item becomes a work branch. On start, copy `status.md` into `docs/`,
 > set the work item, choose a Track (FULL for risky/unknown items, LIGHT for
 > small/clear ones), reset items to TBD, and begin at the INIT stage.
+>
+> Slicing rules to avoid redundant work:
+> - Define each item by a distinct, user-visible outcome, captured in its one-line Definition of Done.
+> - Before starting an item, check overlap: if an earlier item already forces this work, fold them together or keep the earlier one deliberately minimal.
+> - If two rows share Definition-of-Done language, merge or re-scope them.
+> - For vertical slices, mark any pulled-in work in the roadmap immediately, or defer it with an explicit stub — never leave silent overlap.
 
-| # | Work Item | Priority | Track | Depends On | Status |
-| --- | --- | --- | --- | --- | --- |
-| 1 | TBD | TBD | FULL | - | TODO |
-| 2 | TBD | TBD | LIGHT | 1 | TODO |
-| 3 | TBD | TBD | LIGHT | - | TODO |
+| # | Work Item | Definition of Done | Priority | Track | Depends On | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | TBD | TBD | TBD | FULL | - | TODO |
+| 2 | TBD | TBD | TBD | LIGHT | 1 | TODO |
+| 3 | TBD | TBD | TBD | LIGHT | - | TODO |
 
+Definition of Done: one line describing a distinct user-visible outcome; no two rows should share it.
 Track values: FULL (full pipeline) / LIGHT (skip SPEC + TASK)
 Status values: TODO / IN PROGRESS / DONE / BLOCKED
 
@@ -176,9 +183,12 @@ Rules:
 2. Keep the roadmap as the single source of truth for what to build next.
 3. Prefer MVP solutions and avoid over-engineering.
 4. Suggest architecture changes only when absolutely necessary; record them under Key Decisions.
-5. Do not start a work item until it exists in the Roadmap.
-6. When starting a work item, hand off to `status.md` (per-task workflow) on a new branch.
-7. During work branches, ignore this file; it is only revisited when the user asks to modify it, or via `report` on main/master.
+5. Give every roadmap item a one-line Definition of Done describing a distinct, user-visible outcome; no two items should share it.
+6. Before starting a work item, run an overlap check against earlier/related items — if an earlier item already forces this work, fold them together or keep the earlier one deliberately minimal instead of duplicating.
+7. When a vertical slice pulls in adjacent work, record it in the roadmap immediately or defer it with an explicit stub; never leave silent overlap.
+8. Do not start a work item until it exists in the Roadmap.
+9. When starting a work item, hand off to `status.md` (per-task workflow) on a new branch.
+10. During work branches, ignore this file; it is only revisited when the user asks to modify it, or via `report` on main/master.
 
 ---
 
@@ -192,7 +202,7 @@ show architecture
 
 show roadmap
 
-add roadmap item
+add roadmap item   (add a row with a one-line Definition of Done; check it doesn't overlap an existing item)
 
 start <type>/<name> [full|light]   (copy status.md to docs/, reset to INIT stage, set the Track; type = feature/fix/chore/docs; Track defaults to the Roadmap row, else FULL)
 
