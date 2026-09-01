@@ -69,11 +69,10 @@ Each branch carries one `status.md` and one work item from the Roadmap, regardle
 
 ```
 docs/
-  project.md          (this file — whole-project overview, read once)
-  status.md           (per-task workflow, one copy per branch)
-  specs/<name>.md     (SPEC stage output)
-  tasks/<name>.md     (TASK stage output)
-<source>/             (application/source code)
+  project.md            (this file — whole-project overview, read once)
+  status.md             (per-task workflow, one copy per branch)
+  workitems/<name>.md   (FULL track: SPEC + TASK output merged in one file)
+<source>/               (application/source code)
 ```
 
 ---
@@ -129,14 +128,16 @@ Constraints / Non-Functional Requirements:
 ## Roadmap / Todo List
 
 > Each item becomes a work branch. On start, copy `status.md` into `docs/`,
-> set the work item, reset items to TBD, and begin at the INIT stage.
+> set the work item, choose a Track (FULL for risky/unknown items, LIGHT for
+> small/clear ones), reset items to TBD, and begin at the INIT stage.
 
-| # | Work Item | Priority | Depends On | Status |
-| --- | --- | --- | --- | --- |
-| 1 | TBD | TBD | - | TODO |
-| 2 | TBD | TBD | 1 | TODO |
-| 3 | TBD | TBD | - | TODO |
+| # | Work Item | Priority | Track | Depends On | Status |
+| --- | --- | --- | --- | --- | --- |
+| 1 | TBD | TBD | FULL | - | TODO |
+| 2 | TBD | TBD | LIGHT | 1 | TODO |
+| 3 | TBD | TBD | LIGHT | - | TODO |
 
+Track values: FULL (full pipeline) / LIGHT (skip SPEC + TASK)
 Status values: TODO / IN PROGRESS / DONE / BLOCKED
 
 ---
@@ -193,6 +194,6 @@ show roadmap
 
 add roadmap item
 
-start <type>/<name>   (copy status.md to docs/, reset to INIT stage; type = feature/fix/chore/docs)
+start <type>/<name> [full|light]   (copy status.md to docs/, reset to INIT stage, set the Track; type = feature/fix/chore/docs; Track defaults to the Roadmap row, else FULL)
 
 report   (only on main/master: re-read this file and summarize roadmap progress)

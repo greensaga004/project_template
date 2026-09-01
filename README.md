@@ -6,7 +6,7 @@ Two files drive everything:
 | File | Scope | When |
 | --- | --- | --- |
 | `project.md` | Whole codebase | Filled once at project start (or scanned from an existing repo) |
-| `status.md` | One work item | Copied per branch; walks INIT → SPEC → TASK → IMPLEMENTATION → VERIFICATION |
+| `status.md` | One work item | Copied per branch; walks a Track — FULL (INIT → SPEC → TASK → IMPLEMENTATION → VERIFICATION) or LIGHT (INIT → IMPLEMENTATION → VERIFICATION) |
 
 Works for any project type: web, desktop (Windows/macOS/Linux), mobile (Android/iOS), CLI, library, backend, or embedded.
 
@@ -44,8 +44,9 @@ fi
 
 1. Create a branch: `<type>/<short-name>` (type = `feature` / `fix` / `chore` / `docs`).
 2. Copy `status.md` into `docs/` and run `goto init` to reset it.
-3. Progress through the stages with `goto next stage`.
-4. Deliver: `open pr` (if your Delivery Policy requires a PR — always confirmed before opening), then merge, then `finish`.
+3. Pick a **Track**: FULL for large/risky items (full SPEC + TASK pipeline), LIGHT for small/clear ones (skips SPEC + TASK).
+4. Progress through the stages with `goto next stage`.
+5. Deliver: `open pr` (if your Delivery Policy requires a PR — always confirmed before opening), then merge, then `finish`.
 
 ---
 
@@ -54,7 +55,7 @@ fi
 - Small/new project: `docs/`
 - Large existing repo (kernel, OpenBMC): a dedicated folder like `.workflow/` to avoid clashing with the project's own `docs/` or `Documentation/`. Add it to `.gitignore` if you don't intend to upstream it.
 
-Stage outputs land in `docs/specs/<name>.md` and `docs/tasks/<name>.md`.
+On the FULL track, SPEC and TASK outputs land together in `docs/workitems/<name>.md`. The LIGHT track skips both — status.md holds the whole trail.
 
 ---
 

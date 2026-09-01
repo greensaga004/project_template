@@ -19,15 +19,28 @@ Description: TBD
 
 ---
 
+## Track
+
+FULL
+
+Tracks:
+
+- FULL — INIT → SPEC → TASK → IMPLEMENTATION → VERIFICATION. Use for large/risky items with real unknowns.
+- LIGHT — INIT → IMPLEMENTATION → VERIFICATION (skips the SPEC and TASK docs). Use for small, clear items.
+
+Choose LIGHT when scope and design are obvious; FULL when there are unknowns worth writing down.
+
+---
+
 ## Current Stage
 
 INIT
 
-Available Stages:
+Available Stages (depends on Track):
 
 - INIT
-- SPEC
-- TASK
+- SPEC            (FULL track only)
+- TASK            (FULL track only)
 - IMPLEMENTATION
 - VERIFICATION
 
@@ -71,11 +84,11 @@ Exit Criteria:
 
 Goal:
 
-Define requirements and MVP.
+Define requirements and MVP.  (FULL track only — skipped on LIGHT.)
 
 Output:
 
-docs/specs/<name>.md
+docs/workitems/<name>.md — "Spec" section
 
 Allowed:
 
@@ -103,11 +116,11 @@ Exit Criteria:
 
 Goal:
 
-Break the work item into implementable tasks.
+Break the work item into implementable tasks.  (FULL track only — skipped on LIGHT.)
 
 Output:
 
-docs/tasks/<name>.md
+docs/workitems/<name>.md — "Tasks" section (same file as SPEC)
 
 Allowed:
 
@@ -199,6 +212,8 @@ If Pull Request Required = no, skip straight to `finish`.
 
 ## Current Checklist
 
+> On the LIGHT track, skip the SPEC and TASK sections below.
+
 ### INIT
 
 - [ ] Branch Created
@@ -241,6 +256,8 @@ If Pull Request Required = no, skip straight to `finish`.
 
 TBD
 
+> Keep this to 3-4 lines. Detail belongs in docs/workitems/<name>.md, not here.
+
 ---
 
 ## Next Action
@@ -255,16 +272,26 @@ Always read this file first.
 
 Rules:
 
-1. Follow the Current Stage.
-2. Do not jump to later stages.
-3. Prefer MVP solutions.
-4. Avoid over-engineering.
-5. Suggest architecture changes only when absolutely necessary.
-6. Focus on completing the current stage before moving forward.
-7. On `goto next stage`, commit the current changes before advancing.
-8. On `goto init`, reset this file to its init state: set Current Stage to INIT, set Work Item Name/Description/Current Task/Next Action to TBD, and uncheck every checklist item.
-9. On `open pr`, always show the PR title and description and ask for explicit user confirmation; only open the PR after the user approves.
-10. On `report` while on a work branch, summarize progress from this file only (current stage + checklist); do not read `project.md`.
+1. Follow the Current Stage and Track. On the LIGHT track, INIT hands off directly to IMPLEMENTATION — skip SPEC and TASK.
+2. Confirm the Track during INIT: FULL for items with unknowns, LIGHT for small/clear items. Record it in the Track section.
+3. Do not jump to later stages.
+4. Prefer MVP solutions.
+5. Avoid over-engineering.
+6. Suggest architecture changes only when absolutely necessary.
+7. Focus on completing the current stage before moving forward.
+8. Commit at meaningful checkpoints, not every stage: once at SPEC-agreed (FULL track) and once at IMPLEMENTATION-done. Do not create a commit per stage.
+9. Keep the Current Task section to 3-4 lines; put detail in docs/workitems/<name>.md.
+10. On `goto init`, reset this file to its init state: set Track to FULL, Current Stage to INIT, set Work Item Name/Description/Current Task/Next Action to TBD, and uncheck every checklist item.
+11. On `open pr`, always show the PR title and description and ask for explicit user confirmation; only open the PR after the user approves.
+12. On `report` while on a work branch, summarize progress from this file only (current stage + checklist); do not read `project.md`.
+
+Efficiency (keep credit/token spend low):
+
+- Reuse the shell environment: configure PATH/toolchain once per terminal, or call the project's build script — don't re-emit long environment setup on every command.
+- Batch build + test into one command instead of running configure → build → test as separate calls.
+- Don't re-run builds or tests that already passed unless the code changed.
+- Prefer fewer, larger file reads over many small ranged reads of the same file.
+- Persist build/run/test commands and workflow conventions to repo memory once confirmed, so they aren't re-derived each session.
 
 ---
 
@@ -272,17 +299,19 @@ Rules:
 
 report   (on a work branch: summarize this work item's progress from status.md only; do not read project.md)
 
-goto init   (reset this file to init state: stage=INIT, header fields=TBD, all checkboxes unchecked)
+set track full | light   (choose the pipeline: FULL = SPEC + TASK + IMPLEMENTATION + VERIFICATION, LIGHT = IMPLEMENTATION + VERIFICATION only)
 
-goto spec
+goto init   (reset this file to init state: track=FULL, stage=INIT, header fields=TBD, all checkboxes unchecked)
 
-goto task
+goto spec   (FULL track only)
+
+goto task   (FULL track only)
 
 goto implementation
 
 goto verification
 
-goto next stage
+goto next stage   (advances along the current Track; on LIGHT, INIT → IMPLEMENTATION)
 
 open pr   (after VERIFICATION done: push branch and open a PR to main; requires CI green if project.md sets CI Required = yes; must be confirmed by the user before the PR is actually opened)
 
