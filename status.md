@@ -250,7 +250,7 @@ If Pull Request Required = no, skip straight to `finish`.
 ### VERIFICATION
 
 - [ ] Work Item Tested
-- [ ] Spec Coverage Verified
+- [ ] Spec Coverage Verified (on the LIGHT track, verify against the item's Definition of Done)
 - [ ] CI Passed (required if project.md Delivery Policy sets CI Required = yes)
 
 ---

@@ -16,7 +16,7 @@ Works for any project type: web, desktop (Windows/macOS/Linux), mobile (Android/
 
 ### 1. Whole new project
 
-1. Create the project, then fill in `project.md`: Final Target, Architecture, Roadmap.
+1. Create the project, then fill in `project.md`: Final Target, Architecture, Roadmap (give each roadmap item a one-line Definition of Done).
 2. `project.md` is read **once** to initialize; after that it is ignored during branch work and only revisited on `report` from `main`/`master`, or when you ask to modify it.
 
 ### 2. Existing project (e.g. OpenBMC, Linux kernel)
