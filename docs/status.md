@@ -193,7 +193,7 @@ Flow (only if project.md Delivery Policy sets Pull Request Required = yes):
 1. `open pr` — confirm, then push branch and open a PR to main.
 2. Wait for CI green + review approval.
 3. Merge the PR.
-4. `finish` — switch to main and delete the branch.
+4. `finish` — switch to main, update `project.md` progress (Roadmap row status and any completed Milestone checkbox), then delete the branch.
 
 If Pull Request Required = no, skip straight to `finish`.
 
@@ -279,6 +279,7 @@ Rules:
 17. `goto plan`, `goto implementation`, and `goto verification` are explicit stage-navigation commands (including moving back for rework): they change Current Stage only and do not auto-start work.
 18. On `goto plan`, `goto implementation`, or `goto verification`, record a one-line reason in Next Action in the same turn (for traceability).
 19. Stage changes do not auto-check or auto-uncheck checklist items. Checklist items change only when explicitly completed/uncompleted by work updates; only `goto init` resets all checklist items.
+20. On `finish`, always update `project.md` first: mark the matching Roadmap item as DONE (or equivalent progress), update Milestones if completed by this work item, then complete branch cleanup.
 
 ### Stage Transition Matrix
 
@@ -320,7 +321,7 @@ run ci   (VERIFICATION: detect a CI config and run it locally until green; if no
 
 open pr   (after VERIFICATION done: push branch and open a PR to main; requires CI green if project.md sets CI Required = yes; must be confirmed by the user before the PR is actually opened)
 
-finish (switch to main branch and delete the current branch)
+finish   (switch to main, update project.md progress (Roadmap/Milestones), then delete the current branch)
 
 ---
 
