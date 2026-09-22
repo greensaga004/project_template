@@ -1,7 +1,7 @@
 # PROJECT OVERVIEW
 
 > Use this file for a **whole new codebase**.
-> Fill it in once at project start to define the architecture, final target, and roadmap.
+> Fill it in once at project start (typically from a PRD via `init`) to define the architecture, final target, roadmap, and milestones.
 > Each roadmap item is later implemented on its own branch using `status.md`.
 
 ## Init Status
@@ -67,11 +67,23 @@ Each branch carries one `status.md` and one work item from the Roadmap, regardle
 
 ## Repository Layout
 
+Template repository layout (this repo):
+
+```
+README.md
+docs/
+  project.md
+  status.md
+  workitems/<name>.md
+```
+
+Recommended layout inside a target project:
+
 ```
 docs/
   project.md            (this file — whole-project overview, read once)
   status.md             (per-task workflow, one copy per branch)
-  workitems/<name>.md   (FULL track: SPEC + TASK output merged in one file)
+  workitems/<name>.md   (FULL track: PLAN output — Spec + Tasks — in one file)
 <source>/               (application/source code)
 ```
 
@@ -127,7 +139,7 @@ Constraints / Non-Functional Requirements:
 
 ## Roadmap / Todo List
 
-> Each item becomes a work branch. On start, copy `status.md` into `docs/`,
+> Each item becomes a work branch. On start, copy the status template into your workflow directory (`<workflow-dir>/status.md`, usually `docs/status.md`),
 > set the work item, choose a Track (FULL for risky/unknown items, LIGHT for
 > small/clear ones), reset items to TBD, and begin at the INIT stage.
 >
@@ -144,12 +156,14 @@ Constraints / Non-Functional Requirements:
 | 3 | TBD | TBD | TBD | LIGHT | - | TODO |
 
 Definition of Done: one line describing a distinct user-visible outcome; no two rows should share it.
-Track values: FULL (full pipeline) / LIGHT (skip SPEC + TASK)
+Track values: FULL (full pipeline) / LIGHT (skip PLAN)
 Status values: TODO / IN PROGRESS / DONE / BLOCKED
 
 ---
 
 ## Milestones
+
+> Defined here on `init` (from the PRD/Final Target). Each finished milestone triggers a README refresh.
 
 - [ ] M1: TBD
 - [ ] M2: TBD
@@ -165,22 +179,25 @@ Re-read this file only when: (a) the user explicitly asks to modify it, or (b) t
 
 Detecting whether the project is defined:
 
-- If `docs/project.md` is missing → not defined; initialize first.
+- Resolve `project.md` location first: prefer `docs/project.md`; for large existing repos, `.workflow/project.md` is also valid; use root `project.md` only for legacy layouts.
+- If the resolved file is missing → not defined; initialize first.
 - If it exists but `Init Status` is `TEMPLATE` → not defined; finish initialization.
 - If `Init Status` is `DEFINED` → already defined; do not re-initialize.
 
 Initializing (`init`):
 
 - If `Init Status` is already `DEFINED`, do nothing unless the user asks to modify.
+- If the user provides a PRD (product requirements doc), read it and (re)define this whole file from it: Final Target, Architecture, Roadmap, and Milestones. The PRD is the source of truth for scope and goals; treat `init` as a full re-definition of project.md.
 - For an existing codebase: scan the repo (languages, frameworks, structure, build files) and draft the empty fields — Project Type, Target Platforms, Tech Stack, Architecture summary.
-- For an empty project: interview the user to fill the same fields.
+- For an empty project: interview the user (or read the PRD) to fill the same fields.
 - Always present the drafted values for confirmation; set `Status: DEFINED` only after the user approves.
-- Never invent Final Target or Roadmap from a scan — those come from the user.
+- Without a PRD, never invent Final Target or Roadmap from a scan — those come from the user.
+- After `Status: DEFINED`, write/update the project README so it describes the whole project's intended final state as fully as possible (from the PRD/Final Target); it is then refreshed as each milestone finishes.
 
 Rules:
 
 1. Define architecture and final target before writing any code.
-2. Keep the roadmap as the single source of truth for what to build next.
+2. Keep the roadmap as the single source of truth for what to build next; define the Roadmap and Milestones here in project.md (from the PRD on `init`), not elsewhere.
 3. Prefer MVP solutions and avoid over-engineering.
 4. Suggest architecture changes only when absolutely necessary; record them under Key Decisions.
 5. Give every roadmap item a one-line Definition of Done describing a distinct, user-visible outcome; no two items should share it.
@@ -189,12 +206,13 @@ Rules:
 8. Do not start a work item until it exists in the Roadmap.
 9. When starting a work item, hand off to `status.md` (per-task workflow) on a new branch.
 10. During work branches, ignore this file; it is only revisited when the user asks to modify it, or via `report` on main/master.
+11. Keep the project README aligned with the Final Target: on `init` write it toward the whole project's intended final state, and update it whenever a milestone finishes.
 
 ---
 
 ## Commands
 
-init   (scan the codebase to draft empty fields — or interview if empty project — confirm, then set Init Status = DEFINED)
+init   (read a PRD if provided — or scan the codebase / interview — to (re)define Final Target, Architecture, Roadmap, and Milestones; confirm, set Init Status = DEFINED, then write the project README toward the final target)
 
 show final target
 
@@ -204,6 +222,6 @@ show roadmap
 
 add roadmap item   (add a row with a one-line Definition of Done; check it doesn't overlap an existing item)
 
-start <type>/<name> [full|light]   (copy status.md to docs/, reset to INIT stage, set the Track; type = feature/fix/chore/docs; Track defaults to the Roadmap row, else FULL)
+start <type>/<name> [full|light]   (copy the status template to `<workflow-dir>/status.md` (usually `docs/status.md`), reset to INIT stage, set the Track; type = feature/fix/chore/docs; Track defaults to the Roadmap row, else FULL)
 
 report   (only on main/master: re-read this file and summarize roadmap progress)
